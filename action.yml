@@ -16,11 +16,11 @@ runs:
       shell: bash
     - id: vars
       run: |
-        echo ::set-output name=docker_image::docker.pkg.github.com/$GITHUB_REPOSITORY/fc-agents-${{ inputs.fc-country }}
+        echo ::set-output name=docker_image::ghcr.io/$GITHUB_REPOSITORY/fc-agents-${{ inputs.fc-country }}
       shell: bash
     - run: docker build --build-arg FC_COUNTRY="${{ inputs.fc-country }}" --tag ${{ steps.vars.outputs.docker_image }} .
       shell: bash
-    - run: echo ${{ inputs.github-token }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
+    - run: echo ${{ inputs.github-token }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
       shell: bash
     - run: docker push ${{ steps.vars.outputs.docker_image }}
       shell: bash
