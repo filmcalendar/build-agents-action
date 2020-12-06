@@ -14,13 +14,13 @@ runs:
         cp ${{ github.action_path }}/Dockerfile . |
         cp ${{ github.action_path }}/.dockerignore .
       shell: bash
-    - run: |
-        export DOCKER_IMAGE=docker.pkg.github.com/$GITHUB_REPOSITORY/fc-agents-${{ inputs.fc-country }}
-        echo "::set-env name=DOCKER_IMAGE::$DOCKER_IMAGE"
+    - id: vars
+      run: |
+        echo ::set-output name=docker_image::docker.pkg.github.com/$GITHUB_REPOSITORY/fc-agents-${{ inputs.fc-country }}
       shell: bash
-    - run: docker build --build-arg FC_COUNTRY="${{ inputs.fc-country }}" --tag $DOCKER_IMAGE .
+    - run: docker build --build-arg FC_COUNTRY="${{ inputs.fc-country }}" --tag ${{ steps.vars.outputs.docker_image }} .
       shell: bash
     - run: echo ${{ inputs.github-token }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
       shell: bash
-    - run: docker push $DOCKER_IMAGE
+    - run: docker push ${{ steps.vars.outputs.docker_image }}
       shell: bash
