@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v2
       - id: dotenv
         uses: falti/dotenv-action@v0.2.5
-      - id: foo
+      - nam: Build docker image
         uses: filmcalendar/build-country-agents-action@v1
         with:
           fc-country: ${{ steps.dotenv.outputs.FC_COUNTRY }}

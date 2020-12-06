@@ -7,8 +7,7 @@ inputs:
 runs:
   using: composite
   steps:
-    - run: docker build \
-        --build-arg FC_COUNTRY="${{ inputs.fc-country }}" \
-        --tag "fc-agents-${{ inputs.fc-country }}:latest" \
-        .
+    - run: ./docker-build.sh
       shell: bash
+      env:
+        FC_COUNTRY: ${{ inputs.fc-country }}
