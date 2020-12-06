@@ -1,0 +1,14 @@
+name: Build Agents Action
+description: Build country's agents into a docker image
+inputs:
+  fc-country:
+    required: true
+    description: Country's agents
+runs:
+  using: composite
+  steps:
+    - run: docker build \
+        --build-arg FC_COUNTRY="${{ inputs.fc-country }}" \
+        --tag "fc-agents-${{ inputs.fc-country }}:latest" \
+        .
+      shell: bash
