@@ -8,7 +8,6 @@ set -o errexit
 image=fc-agents-${FC_COUNTRY}:latest
 
 docker build \
-  --file docker/Dockerfile \
   --build-arg FC_COUNTRY="${FC_COUNTRY}" \
   --tag "${image}" \
   .
