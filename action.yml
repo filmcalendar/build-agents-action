@@ -7,6 +7,11 @@ inputs:
 runs:
   using: composite
   steps:
+    - run: |
+        cp ${{ github.action_path }}/Dockerfile . |
+        cp ${{ github.action_path }}/.dockerignore . |
+        cp ${{ github.action_path }}/docker-build.sh .
+      shell: bash
     - run: ${{ github.action_path }}/docker-build.sh
       shell: bash
       env:
