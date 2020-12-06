@@ -18,3 +18,5 @@ runs:
       shell: bash
     - run: echo ${{ inputs.github-token }} | docker login docker.pkg.github.com --username ${{ github.actor }} --password-stdin
       shell: bash
+    - run: docker push $GITHUB_REPOSITORY/fc-agents-${{ inputs.fc-country }}:latest
+      shell: bash
