@@ -11,5 +11,12 @@ runs:
         cp ${{ github.action_path }}/Dockerfile . |
         cp ${{ github.action_path }}/.dockerignore .
       shell: bash
-    - run: docker build --build-arg FC_COUNTRY="${{ inputs.fc-country }}" --tag fc-agents-${{ inputs.fc-country }}:latest .
+    - run: docker build \
+        --build-arg FC_COUNTRY="${{ inputs.fc-country }}" \
+        --tag fc-agents-${{ inputs.fc-country }}:latest \
+        .
+      shell: bash
+    - run: docker login docker.pkg.github.com \
+        --username ${{ github.actor }} \
+        --password ${{ secrets.GITHUB_TOKEN }}
       shell: bash
