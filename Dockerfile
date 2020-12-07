@@ -10,8 +10,9 @@ WORKDIR /app
 COPY package.json /app
 RUN npm install --production --no-audit
 
-COPY .env .bin/fc-agent  /app/
+COPY .env .bin/fc-agent fc-agents-init.sh /app/
 RUN chmod +x /app/fc-agent
+RUN chmod +x /app/fc-agents-init.sh
 ENV PATH="/app:${PATH}"
 
 RUN mkdir -p /app/data-${FC_COUNTRY}
