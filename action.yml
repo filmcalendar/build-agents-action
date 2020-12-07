@@ -1,12 +1,26 @@
 name: Build Agents Action
 description: Build country's agents into a docker image
+
 inputs:
   fc-country:
     required: true
     description: Country's agents
-  github-token:
+  docker-registry-password:
     required: true
-    description: GH credentials
+    description: Docker registry credentials
+  docker-registry:
+    required: false
+    description: docker registry host
+    default: ghcr.io
+  docker-image-owner:
+    required: false
+    description: Owner of image
+    default: filmcalendar
+  docker-image-name:
+    required: false
+    description: Image's name
+    default: fc-agents
+
 runs:
   using: composite
   steps:
@@ -17,11 +31,11 @@ runs:
       shell: bash
     - id: vars
       run: |
-        echo ::set-output name=docker_image::ghcr.io/filmcalendar/fc-agents-${{ inputs.fc-country }}:latest
+        echo ::set-output name=docker_image::${{ inputs.docker-registry }}/${{ inputs.docker-image-owner }}/${{ inputs.docker-image-name }}-${{ inputs.fc-country }}:latest
       shell: bash
     - run: docker build --tag ${{ steps.vars.outputs.docker_image }} .
       shell: bash
-    - run: echo ${{ inputs.github-token }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
+    - run: echo ${{ inputs.docker-registry-password }} | docker login ${{inputs.docker-registry }} --username ${{ github.actor }} --password-stdin
       shell: bash
     - run: docker push ${{ steps.vars.outputs.docker_image }}
       shell: bash

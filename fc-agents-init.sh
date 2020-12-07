@@ -32,12 +32,12 @@ wait
   cd "${data_dir}" || exit;
   git init
   # git credentials are env secrets on docker run
-  git config user.email "${GITHUB_USER_EMAIL}"
-  git config user.name "${GITHUB_USER_NAME}"
+  git config user.email "${FC_GIT_USER_EMAIL}"
+  git config user.name "${FC_GIT_HOST_USER}"
   git checkout -b main
   git add .
   git commit -m "Daily dispatch: ${today}"
-  git push --set-upstream "https://${GITHUB_TOKEN}@github.com/${GITHUB_DATA_REPO}.git" main
+  git push --set-upstream "${FC_GIT_HOST_DATA_REPO}" main
 }
 
 echo "The End."

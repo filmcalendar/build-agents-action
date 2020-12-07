@@ -21,6 +21,7 @@ jobs:
         uses: filmcalendar/build-country-agents-action@v1
         with:
           fc-country: ${{ steps.dotenv.outputs.FC_COUNTRY }}
+          docker-registry-password: ${{ steps.dotenv.outputs.FC_DOCKER_REGISTRY_PASSWORD }}
 ```
 
 ## Contribute
