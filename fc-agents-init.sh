@@ -13,6 +13,13 @@ set +o allexport
 data_dir="data"
 mkdir -p "${data_dir}"
 
+# git credentials are env secrets on docker run
+git config user.email "${FC_GIT_USER_EMAIL}"
+git config user.name "${FC_GIT_HOST_USER}"
+
+# data repo
+git clone "${FC_GIT_HOST_DATA_REPO}" "${data_dir}"
+
 # list agents found on country app
 agents=$(fc-agent list "$@")
 IFS=',' read -r -a agents_list <<< "$agents"
@@ -30,14 +37,9 @@ wait
   data_dir="data"
 
   cd "${data_dir}" || exit;
-  git init
-  # git credentials are env secrets on docker run
-  git config user.email "${FC_GIT_USER_EMAIL}"
-  git config user.name "${FC_GIT_HOST_USER}"
-  git checkout -b main
   git add .
   git commit -m "Daily dispatch: ${today}"
-  git push --set-upstream "${FC_GIT_HOST_DATA_REPO}" main
+  git push
 }
 
 echo "The End."

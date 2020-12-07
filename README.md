@@ -1,4 +1,4 @@
-# filmcalendar/build-country-agents-action
+# build-country-agents-action
 
 ## Usage
 
