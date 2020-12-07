@@ -17,7 +17,7 @@ runs:
       shell: bash
     - id: vars
       run: |
-        echo ::set-output name=docker_image::ghcr.io/filmcalendar/fc-agents-${{ inputs.fc-country }}
+        echo ::set-output name=docker_image::ghcr.io/filmcalendar/fc-agents-${{ inputs.fc-country }}:latest
       shell: bash
     - run: docker build --build-arg FC_COUNTRY="${{ inputs.fc-country }}" --tag ${{ steps.vars.outputs.docker_image }} .
       shell: bash
