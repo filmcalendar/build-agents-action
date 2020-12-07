@@ -13,9 +13,6 @@ set +o allexport
 data_dir="data"
 mkdir -p "${data_dir}"
 
-# git credentials are env secrets on docker run
-git config user.email "${FC_GIT_USER_EMAIL}"
-git config user.name "${FC_GIT_HOST_USER}"
 
 # data repo
 git clone "${FC_GIT_HOST_DATA_REPO}" "${data_dir}"
@@ -37,6 +34,11 @@ wait
   data_dir="data"
 
   cd "${data_dir}" || exit;
+
+  # git credentials are env secrets on docker run
+  git config user.email "${FC_GIT_USER_EMAIL}"
+  git config user.name "${FC_GIT_HOST_USER}"
+
   git add .
   git commit -m "Daily dispatch: ${today}"
   git push
