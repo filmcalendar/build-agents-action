@@ -10,7 +10,6 @@ source .env
 set +o allexport
 
 
-# FC_COUNTRY is read from a .env on a country-agents app
 data_dir="data"
 mkdir -p "${data_dir}"
 

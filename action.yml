@@ -19,7 +19,7 @@ runs:
       run: |
         echo ::set-output name=docker_image::ghcr.io/filmcalendar/fc-agents-${{ inputs.fc-country }}:latest
       shell: bash
-    - run: docker build --build-arg FC_COUNTRY="${{ inputs.fc-country }}" --tag ${{ steps.vars.outputs.docker_image }} .
+    - run: docker build --tag ${{ steps.vars.outputs.docker_image }} .
       shell: bash
     - run: echo ${{ inputs.github-token }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin
       shell: bash

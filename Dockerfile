@@ -1,7 +1,5 @@
 FROM mhart/alpine-node:15
 
-ARG FC_COUNTRY
-
 RUN set -x \
     && apk add --no-cache git bash \
     && git --version && bash --version && node -v && npm -v
@@ -15,6 +13,6 @@ RUN chmod +x /app/fc-agent
 RUN chmod +x /app/fc-agents-init.sh
 ENV PATH="/app:${PATH}"
 
-RUN mkdir -p /app/data-${FC_COUNTRY}
+RUN mkdir -p /app/data
 
-ENTRYPOINT [ "fc-agents-init" ]
+ENTRYPOINT [ "fc-agents-init.sh" ]
