@@ -1,4 +1,4 @@
-# build-country-agents-action
+# build-agents-action
 
 ## Usage
 
@@ -18,7 +18,7 @@ jobs:
       - id: dotenv
         uses: falti/dotenv-action@v0.2.5
       - nam: Build docker image
-        uses: filmcalendar/build-country-agents-action@v1
+        uses: filmcalendar/build-agents-action@v1
         with:
           fc-country: ${{ steps.dotenv.outputs.FC_COUNTRY }}
           docker-registry-password: ${{ steps.dotenv.outputs.FC_DOCKER_REGISTRY_PASSWORD }}
