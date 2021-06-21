@@ -9,7 +9,7 @@ COPY package.json /app
 RUN npm install --production --no-audit
 
 COPY .bin/fc-agent.cjs /app/.bin/fc-agent.cjs
-COPY .env fc-agents-init.sh /app/
+COPY fc-agents-init.sh /app/
 RUN chmod +x /app/.bin/fc-agent.cjs && \
     chmod +x /app/fc-agents-init.sh && \
     npm link && \
