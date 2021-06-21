@@ -2,21 +2,21 @@ name: Build Agents Action
 description: Build country's agents into a docker image
 
 inputs:
-  fc-country:
+  country:
     required: true
     description: Country's agents
-  docker-registry-password:
+  dockerRegistryPassword:
     required: true
     description: Docker registry credentials
-  docker-registry:
+  dockerRegistry:
     required: false
     description: docker registry host
     default: ghcr.io
-  docker-image-owner:
+  dockerImageOwner:
     required: false
     description: Owner of image
     default: filmcalendar
-  docker-image-name:
+  dockerImageName:
     required: false
     description: Image's name
     default: fc-agents
@@ -31,11 +31,11 @@ runs:
       shell: bash
     - id: vars
       run: |
-        echo ::set-output name=docker_image::${{ inputs.docker-registry }}/${{ inputs.docker-image-owner }}/${{ inputs.docker-image-name }}-${{ inputs.fc-country }}:latest
+        echo ::set-output name=dockerImage::${{ inputs.dockerRegistry }}/${{ inputs.dockerImageOwner }}/${{ inputs.dockerImageName }}-${{ inputs.country }}:latest
       shell: bash
-    - run: docker build --tag ${{ steps.vars.outputs.docker_image }} .
+    - run: docker build --tag ${{ steps.vars.outputs.dockerImage }} .
       shell: bash
-    - run: echo ${{ inputs.docker-registry-password }} | docker login ${{inputs.docker-registry }} --username ${{ github.actor }} --password-stdin
+    - run: echo ${{ inputs.dockerRegistryPassword }} | docker login ${{inputs.dockerRegistry }} --username ${{ github.actor }} --password-stdin
       shell: bash
-    - run: docker push ${{ steps.vars.outputs.docker_image }}
+    - run: docker push ${{ steps.vars.outputs.dockerImage }}
       shell: bash

@@ -2,11 +2,15 @@
 
 ## Configuration
 
-**Environment variables on host repo**
+**Action inputs**
 
-|                             |              |
-| --------------------------- | ------------ |
-| FC_DOCKER_REGISTRY_PASSWORD | github token |
+|                           | default       |
+| ------------------------- | ------------- |
+| `country`                 |               |
+| `dockerRegistryPassword`  |               |
+| `dockerRegistry`          | ghcr.io       |
+| `dockerImageOwner`        | filmcalendar  |
+| `dockerImageName`         | fc-agents     |
 
 ## Usage
 
@@ -23,13 +27,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - id: dotenv
-        uses: falti/dotenv-action@v0.2.5
       - nam: Build docker image
         uses: filmcalendar/build-agents-action@v1
         with:
-          fc-country: ${{ steps.dotenv.outputs.FC_COUNTRY }}
-          docker-registry-password: ${{ steps.dotenv.outputs.FC_DOCKER_REGISTRY_PASSWORD }}
+          country: uk
+          dockerRegistryPassword: ${{ secrets.GH_TOKEN }}
 ```
 
 ## Contribute
