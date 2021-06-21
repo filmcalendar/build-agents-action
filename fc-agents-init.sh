@@ -9,13 +9,11 @@ set -o allexport
 source .env
 set +o allexport
 
-
+# data local dir and repo
 data_dir="data"
 mkdir -p "${data_dir}"
-
-
-# data repo
-git clone "${FC_GIT_HOST_DATA_REPO}" "${data_dir}"
+data_repo=https://${FC_GIT_PASSWORD}@${FC_GIT_HOST}/${FC_GIT_REPO_DATA}.git
+git clone "${data_repo}" "${data_dir}"
 
 # list agents found on country app
 agents=$(fc-agent list "$@")
@@ -37,7 +35,7 @@ wait
 
   # git credentials are env secrets on docker run
   git config user.email "${FC_GIT_USER_EMAIL}"
-  git config user.name "${FC_GIT_HOST_USER}"
+  git config user.name "${FC_GIT_USER}"
 
   git add .
   git commit -m "Daily dispatch: ${today}"
