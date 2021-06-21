@@ -1,5 +1,13 @@
 # build-agents-action
 
+## Configuration
+
+**Environment variables on host repo**
+
+|                             |              |
+| --------------------------- | ------------ |
+| FC_DOCKER_REGISTRY_PASSWORD | github token |
+
 ## Usage
 
 ```yaml
