@@ -2,7 +2,6 @@
 
 # 1. starts each agent in a country every 10secs
 # 2. commits and dispatches all data to FC_GIT_REPO_DATA
-# 3. deletes this droplet
 
 set -o errexit
 
@@ -44,11 +43,4 @@ wait
 wait
 
 echo "The End."
-
-# delete this droplet
-curl \
-  -X DELETE \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer ${FC_DIGITALOCEAN_API_TOKEN}" \
-  "https://api.digitalocean.com/v2/droplets?tag_name=fc-agents-${FC_COUNTRY}"
 
