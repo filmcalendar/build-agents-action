@@ -37,7 +37,7 @@ wait
   git config user.name "${FC_GIT_USER}"
 
   git add .
-  git commit -m "Daily dispatch: ${today}"
+  git commit -m "dispatch: ${today}"
   git push
 }
 
