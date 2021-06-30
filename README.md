@@ -4,9 +4,10 @@
 
 **Action inputs**
 
-|           | default |
-| --------- | ------- |
-| `country` |         |
+|                          | default |
+| ------------------------ | ------- |
+| `country`                |         |
+| `dockerRegistryPassword` |         |
 
 ## Usage
 
@@ -29,6 +30,7 @@ jobs:
         uses: filmcalendar/build-agents-action@v1
         with:
           country: uk
+          dockerRegistryPassword: ${{ secrets.GH_TOKEN }}
 ```
 
 ## Contribute
