@@ -5,21 +5,6 @@ inputs:
   country:
     required: true
     description: Country's agents
-  dockerRegistryPassword:
-    required: true
-    description: Docker registry credentials
-  dockerRegistry:
-    required: false
-    description: docker registry host
-    default: ghcr.io
-  dockerImageOwner:
-    required: false
-    description: Owner of image
-    default: filmcalendar
-  dockerImageName:
-    required: false
-    description: Image's name
-    default: fc-agents
 
 runs:
   using: composite
@@ -28,14 +13,7 @@ runs:
         cp ${{ github.action_path }}/Dockerfile . |
         cp ${{ github.action_path }}/.dockerignore . |
         cp ${{ github.action_path }}/fc-agents-init.sh .
-      shell: bash
-    - id: vars
-      run: |
-        echo ::set-output name=dockerImage::${{ inputs.dockerRegistry }}/${{ inputs.dockerImageOwner }}/${{ inputs.dockerImageName }}-${{ inputs.country }}:latest
-      shell: bash
-    - run: docker build --tag ${{ steps.vars.outputs.dockerImage }} .
-      shell: bash
-    - run: echo ${{ inputs.dockerRegistryPassword }} | docker login ${{inputs.dockerRegistry }} --username ${{ github.actor }} --password-stdin
-      shell: bash
-    - run: docker push ${{ steps.vars.outputs.dockerImage }}
+        docker build --tag ghcr.io/filmcalendar/fc-agents-${{ inputs.country }}:latest . |
+        echo ${{ secrets.GH_TOKEN }} | docker login ghcr.io --username ${{ github.actor }} --password-stdin |
+        docker push ghcr.io/filmcalendar/fc-agents-${{ inputs.country }}:latest |
       shell: bash

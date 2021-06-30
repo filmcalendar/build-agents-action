@@ -4,34 +4,31 @@
 
 **Action inputs**
 
-|                           | default       |
-| ------------------------- | ------------- |
-| `country`                 |               |
-| `dockerRegistryPassword`  |               |
-| `dockerRegistry`          | ghcr.io       |
-| `dockerImageOwner`        | filmcalendar  |
-| `dockerImageName`         | fc-agents     |
+|           | default |
+| --------- | ------- |
+| `country` |         |
 
 ## Usage
 
 ```yaml
 name: Release
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
+  release:
+    types:
+      - created
 
 jobs:
   publish:
-    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - nam: Build docker image
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+      - name: Build docker image
         uses: filmcalendar/build-agents-action@v1
         with:
           country: uk
-          dockerRegistryPassword: ${{ secrets.GH_TOKEN }}
 ```
 
 ## Contribute
